@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta Digital - Luz Adriana Osorno M. - Norte Inmobiliario</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carga de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Carga de Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #1C8706;
+            --secondary: #1D1D1B;
+            --accent-green: #25D366;
+            --light-grey: #EBEBEB;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #f3f4f6;
+        }
+        
+        /* Contenedor principal de la tarjeta con estilo móvil */
+        .card-container {
+            width: 100%;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Responsive para pantallas mayores a móvil */
+        @media (min-width: 450px) {
+            .card-container {
+                max-width: 420px;
+                margin: 2rem auto;
+                min-height: calc(100vh - 4rem);
+                border-radius: 24px;
+                overflow: hidden;
+            }
+        }
+
+        /* Imagen de portada de Norte Inmobiliario */
+        .main-bg {
+            background-image: url('https://i.postimg.cc/8zh1K25G/Chat-GPT-Image-29-may-2026-19-58-48.png');
+            background-size: cover;
+            background-position: center;
+            height: 220px;
+        }
+
+        /* Degradado corporativo de fondo */
+        .content-section {
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            margin-top: -60px;
+            border-top-left-radius: 50px;
+            border-top-right-radius: 50px;
+            position: relative;
+            padding-bottom: 2.5rem;
+            flex-grow: 1;
+        }
+
+        /* Foto de perfil con badge verificado */
+        .profile-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin-top: -105px;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border: 5px solid var(--primary);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+        }
+
+        .verification-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: #3b82f6;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+        }
+
+        .action-btn {
+            background-color: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(28, 135, 6, 0.5);
+        }
+
+        .action-btn-whatsapp {
+            background-color: var(--accent-green);
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        .action-btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .social-btn {
+            background-color: rgba(255, 255, 255, 0.08);
+            color: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .social-btn:hover {
+            background-color: rgba(255, 255, 255, 0.18);
+            transform: scale(1.03);
+            border-color: var(--primary);
+        }
+
+        /* Estilo premium de ventanas modales */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(29, 29, 27, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            backdrop-filter: blur(6px);
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: #ffffff;
+            border-radius: 24px;
+            max-width: 90%;
+            width: 500px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transform: scale(0.95) translateY(20px);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border: 4px solid var(--primary);
+            opacity: 0;
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+        .modal-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #f0f4f8;
+            position: relative;
+        }
+        .modal-header-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--secondary);
+            max-width: calc(100% - 90px);
+            margin: 0 auto;
+        }
+        .modal-header-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--primary);
+            margin: 8px auto 0;
+            border-radius: 2px;
+        }
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        .modal-close-btn {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: #f3f4f6;
+            color: var(--secondary);
+            border-radius: 99px;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+            border: none;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .modal-close-btn:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .calendar-day { transition: all 0.2s ease-in-out; }
+        .calendar-day:not(.disabled):hover {
+            background-color: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+        .calendar-day.disabled {
+            color: #cbd5e1;
+            cursor: not-allowed;
+            background-color: transparent;
+        }
+        .calendar-day.today {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .calendar-day.selected {
+            background-color: var(--secondary);
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(29,29,27,0.5);
+        }
+        .time-slot { transition: all 0.2s ease-in-out; border: 2px solid #f0f4f8; }
+        .time-slot:hover {
+            border-color: var(--primary);
+            background-color: #f3f4f6;
+        }
+        .time-slot.selected {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-container">
+        <!-- SECCIÓN DE IMAGEN SUPERIOR (PORTADA) -->
+        <div class="main-bg"></div>
+        
+        <div class="content-section">
+            <div class="flex flex-col items-center px-6 text-center">
+                <!-- Foto de Perfil y Check de Verificación -->
+                <div class="profile-container">
+                    <img src="https://i.postimg.cc/7hdxdD02/o.png" alt="Luz Adriana Osorno M." class="profile-pic object-cover rounded-full">
+                    <div class="verification-badge">
+                        <i class="fas fa-check text-sm"></i>
+                    </div>
+                </div>
+                
+                <!-- Títulos e Información General -->
+                <h1 class="text-2xl font-bold text-white mt-4 tracking-tight">Luz Adriana Osorno M.</h1>
+                <p class="text-md text-[#25D366] font-semibold tracking-wider uppercase mt-1">Representante Legal</p>
+                <div class="w-12 h-1 bg-[#1C8706] my-3 rounded"></div>
+                <p class="text-white text-md opacity-90 max-w-sm italic">"Confianza que construye futuro"</p>
+                
+                <!-- Botones Principales de Acción (Corregido a 3104238600) -->
+                <div class="flex flex-col sm:flex-row gap-3 w-full max-w-xs mx-auto mt-6">
+                    <!-- Botón Sitio Web -->
+                    <a href="https://www.norteinmobiliario.co/" target="_blank" rel="noopener noreferrer" class="action-btn flex-1 flex items-center justify-center gap-2 font-semibold py-3 rounded-full text-md">
+                        <i class="fas fa-globe"></i>
+                        <span>Sitio Web</span>
+                    </a>
+                    <!-- Botón de WhatsApp Directo (Corregido a 3104238600) -->
+                    <a href="https://wa.me/573104238600?text=Hola%20%F0%9F%91%8B%20Estoy%20interesado(a)%20en%20conocer%20las%20opciones%20inmobiliarias%20disponibles%20y%20recibir%20asesor%C3%ADa%20personalizada." target="_blank" rel="noopener noreferrer" class="action-btn-whatsapp flex-1 flex items-center justify-center gap-2 font-semibold py-3 rounded-full text-md">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                </div>
+                
+                <p class="text-white opacity-60 mt-8 text-xs uppercase tracking-widest">Toca para interactuar</p>
+
+                <!-- Grid de Botones de Interacción (Corregido Llamar y WhatsApp a 3104238600) -->
+                <div class="grid grid-cols-4 gap-3 w-full max-w-sm mx-auto mt-4">
+                    <!-- Servicios -->
+                    <div id="services-btn" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fas fa-building text-2xl text-[#25D366]"></i>
+                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Servicios</span>
+                    </div>
+                    <!-- Horario -->
+                    <div id="horario-btn" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fas fa-calendar-alt text-2xl text-[#25D366]"></i>
+                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Horario</span>
+                    </div>
+                    <!-- Código QR -->
+                    <div id="qr-code-btn" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fas fa-qrcode text-2xl text-[#25D366]"></i>
+                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Código QR</span>
+                    </div>
+                    <!-- Ubicación de Google Maps -->
+                    <a href="https://maps.app.goo.gl/1bh7TWtfP15D7bz39" target="_blank" rel="noopener noreferrer" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fas fa-map-marker-alt text-2xl text-[#25D366]"></i>
+                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Ubicación</span>
+                    </a>
+                    <!-- Red Social: Facebook -->
+                    <a href="https://www.facebook.com/inmonorteinmobiliario" target="_blank" rel="noopener noreferrer" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fab fa-facebook-f text-2xl text-[#25D366]"></i>
+                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Facebook</span>
+                    </a>
+                    <!-- Red Social: Instagram -->
+                    <a href="https://www.instagram.com/norteinmobiliariosas/" target="_blank" rel="noopener noreferrer" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fab fa-instagram text-2xl text-[#25D366]"></i>
+                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Instagram</span>
+                    </a>
+                    <!-- Botón de Llamar Directo (Corregido a 3104238600) -->
+                    <a href="tel:3104238600" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fas fa-phone-alt text-2xl text-[#25D366]"></i>
+                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Llamar</span>
+                    </a>
+                    <!-- Guardar en Agenda VCF -->
+                    <div id="save-contact-btn" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
+                        <i class="fas fa-user-plus text-2xl text-[#25D366]"></i>
+                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Guardar</span>
+                    </div>
+                </div>
+
+                <!-- Nueva Sección Reubicada: "Te ayudamos a encontrar tu hogar ideal" -->
+                <div class="w-full max-w-sm mx-auto mt-8 px-5 py-6 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-md shadow-lg text-center">
+                    <h2 class="text-lg font-bold text-white tracking-tight mb-3">
+                        Te ayudamos a encontrar tu hogar ideal
+                    </h2>
+                    <p class="text-xs text-white/90 leading-relaxed font-light">
+                        Encontramos propiedades que se adaptan a tus necesidades, tu estilo de vida y tus planes a futuro.
+                    </p>
+                    <p class="text-xs text-white/90 leading-relaxed font-light mt-2 mb-4">
+                        Te acompañamos en cada paso para que elegir tu hogar ideal sea una experiencia segura, sencilla y sin estrés.
+                    </p>
+                    
+                    <!-- Botón para Compartir Tarjeta integrado debajo del texto -->
+                    <button id="share-card-btn" class="w-full py-3 bg-[#1C8706] text-white font-bold rounded-xl shadow-lg hover:bg-white hover:text-[#1C8706] transition-all duration-300 flex items-center justify-center gap-2 text-sm border border-transparent hover:border-[#1C8706]">
+                        <i class="fas fa-share-nodes text-lg"></i>
+                        <span>Compartir esta Tarjeta</span>
+                    </button>
+                </div>
+
+                <!-- Instructivo de Instalación Móvil -->
+                <div id="install-btn" class="text-white opacity-70 mt-8 text-xs text-center cursor-pointer hover:opacity-100 transition underline tracking-wider">
+                    ¿Cómo instalar esta tarjeta en mi móvil?
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-banner text-center py-5 px-4 font-semibold" style="background-color: var(--light-grey); color: var(--secondary);">
+            <p class="text-base tracking-wide">Norte Inmobiliario SAS</p>
+            <a href="mailto:norteinmobiliariosas@gmail.com" class="block text-xs text-[#1C8706] hover:underline mt-1 font-normal">norteinmobiliariosas@gmail.com</a>
+        </div>
+    </div>
+
+    <!-- MODAL DE SERVICIOS -->
+    <div id="services-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-header-title">Nuestros Servicios</h2>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="grid grid-cols-1 gap-6 text-left">
+                    <!-- Servicio 1: Arrendamientos -->
+                    <a href="https://www.fincaraiz.com.co/inmobiliarias/norte-inmobiliario-sas/174775954/arriendo/bello/antioquia" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 group">
+                        <div class="flex items-center space-x-4">
+                            <img src="https://i.postimg.cc/9fZqBg3Z/Gemini-Generated-Image-dpe415dpe415dpe4-(1).png" alt="Arrendamientos" class="w-16 h-16 rounded-xl object-cover flex-shrink-0 shadow-md">
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-base group-hover:text-[#1C8706] transition-colors">Arrendamientos</h3>
+                                <p class="text-xs text-gray-500 mt-1">Encuentra espacios ideales para vivir con tranquilidad y confianza.</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-300 group-hover:text-[#1C8706] transition-transform group-hover:translate-x-1 pl-2"></i>
+                    </a>
+                    <!-- Servicio 2: Ventas -->
+                    <a href="https://www.fincaraiz.com.co/inmobiliarias/norte-inmobiliario-sas/174775954/venta/bello/antioquia" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 group">
+                        <div class="flex items-center space-x-4">
+                            <img src="https://i.postimg.cc/0NRzrG6P/Gemini-Generated-Image-dpe415dpe415dpe4.png" alt="Ventas" class="w-16 h-16 rounded-xl object-cover flex-shrink-0 shadow-md">
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-base group-hover:text-[#1C8706] transition-colors">Ventas</h3>
+                                <p class="text-xs text-gray-500 mt-1">Conectamos personas con inmuebles que transforman su futuro.</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-300 group-hover:text-[#1C8706] transition-transform group-hover:translate-x-1 pl-2"></i>
+                    </a>
+                    <!-- Servicio 3: Administración (WhatsApp corregido a 3104238600) -->
+                    <a href="https://wa.me/573104238600?text=Hola%20Luz%20Adriana%2C%20estoy%20interesado(a)%20en%20recibir%20asesor%C3%ADa%20sobre%20el%20servicio%20de%20Administraci%C3%B3n%20de%20mi%20inmueble." target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 group">
+                        <div class="flex items-center space-x-4">
+                            <img src="https://i.postimg.cc/7LkLqxcG/Gemini-Generated-Image-p891cyp891cyp891.png" alt="Administración" class="w-16 h-16 rounded-xl object-cover flex-shrink-0 shadow-md">
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-base group-hover:text-[#1C8706] transition-colors">Administración</h3>
+                                <p class="text-xs text-gray-500 mt-1">Gestionamos tu inmueble con compromiso, respaldo y tranquilidad.</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right text-gray-300 group-hover:text-[#1C8706] transition-transform group-hover:translate-x-1 pl-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE HORARIOS -->
+    <div id="horario-modal" class="modal-overlay">
+        <div class="modal-content">
+             <div class="modal-header">
+                <h2 class="modal-header-title">Horario de Atención</h2>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="space-y-4 text-gray-700">
+                    <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+                        <span class="font-semibold text-[#1D1D1B] flex items-center gap-3"><i class="far fa-calendar-alt w-5 text-center text-[#1C8706]"></i>Lunes a Viernes</span>
+                        <span class="font-mono bg-gray-100 px-2 py-1 rounded text-xs text-gray-700 font-semibold">08:00 - 13:00 / 14:00 - 17:00</span>
+                    </div>
+                    <div class="flex justify-between items-center border-b border-gray-100 pb-3">
+                        <span class="font-semibold text-[#1D1D1B] flex items-center gap-3"><i class="far fa-calendar w-5 text-center text-[#1C8706]"></i>Sábados</span>
+                        <span class="font-mono bg-gray-100 px-2 py-1 rounded text-xs text-gray-700 font-semibold">09:00 - 12:00</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-red-600 flex items-center gap-3"><i class="far fa-calendar-times w-5 text-center text-red-500"></i>Domingos</span>
+                        <span class="font-mono bg-red-50 text-red-600 px-3 py-1 rounded text-xs font-bold">Cerrado</span>
+                    </div>
+                </div>
+                
+                <!-- Botón de Agenda Digital de Asesorías -->
+                <div class="mt-8 pt-6 border-t border-gray-100">
+                    <button id="agendar-modal-trigger" class="w-full py-3 bg-[#1C8706] text-white font-bold rounded-xl shadow-lg hover:bg-[#1D1D1B] transition flex items-center justify-center gap-2">
+                        <i class="far fa-calendar-check"></i>
+                        <span>Agendar Asesoría Virtual</span>
+                    </button>
+                </div>
+                <p class="text-center text-[10px] text-gray-400 mt-4">La agenda digital requiere confirmación de disponibilidad.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE INSTALACIÓN -->
+    <div id="install-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-header-title">¡Guarda mi Tarjeta!</h2>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                 <p class="text-center text-gray-600 mb-6 text-sm">Accede a toda mi información de contacto en cualquier momento instalando este enlace en tu pantalla de inicio.</p>
+                <div class="flex flex-col gap-4">
+                    <div class="p-4 bg-gray-50 rounded-xl border border-gray-100">
+                        <h3 class="text-md font-bold text-[#1C8706] mb-2 flex items-center gap-2"><i class="fab fa-apple"></i> Para iOS (iPhone)</h3>
+                        <ol class="list-decimal list-inside text-gray-600 space-y-1.5 text-xs">
+                            <li>Toca el botón <strong>Compartir</strong> <i class="fas fa-share-square"></i> en Safari.</li>
+                            <li>Busca y selecciona <strong>"Agregar a pantalla de inicio"</strong>.</li>
+                            <li>¡Listo! El icono de la empresa aparecerá en tu móvil.</li>
+                        </ol>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-xl border border-gray-100">
+                        <h3 class="text-md font-bold text-[#1C8706] mb-2 flex items-center gap-2"><i class="fab fa-android"></i> Para Android</h3>
+                        <ol class="list-decimal list-inside text-gray-600 space-y-1.5 text-xs">
+                            <li>Toca los <strong>tres puntos</strong> <i class="fas fa-ellipsis-v"></i> en Chrome.</li>
+                            <li>Selecciona <strong>"Agregar a la pantalla principal"</strong>.</li>
+                            <li>Acepta y tendrás acceso instantáneo desde el escritorio de tu celular.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- MODAL DE QR (Corregido teléfono y WA a 3104238600) -->
+    <div id="qr-code-modal" class="modal-overlay">
+        <div class="modal-content">
+             <div class="modal-header">
+                <h2 class="modal-header-title">Escanear Contacto</h2>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <p class="text-gray-600 mb-5 text-sm">Enfoca la cámara de tu celular en este código para abrir mi perfil digital o almacenar directamente mis datos de contacto.</p>
+                <div class="flex justify-center p-3 bg-white rounded-2xl border border-gray-100 shadow-inner inline-block mx-auto max-w-[220px]">
+                     <!-- Generación de QR dinámico con los datos correctos de Luz Adriana en VCard -->
+                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=BEGIN%3AVCARD%0AVERSION%3A3.0%0AFN%3ALuz%20Adriana%20Osorno%20M.%0AORG%3ANorte%20Inmobiliario%20SAS%0ATITLE%3ARepresentante%20Legal%0ATEL%3BTYPE%3DCELL%2CVOICE%3A3104238600%0ATEL%3BTYPE%3DWORK%2CWA%3A%2B573104238600%0AEMAIL%3Anorteinmobiliariosas%40gmail.com%0AURL%3Ahttps%3A%2F%2Fwww.norteinmobiliario.co%2F%0AEND%3AVCARD" alt="Código QR Luz Adriana Osorno" class="rounded-lg">
+                </div>
+                 <p class="text-[10px] text-gray-400 mt-4 font-semibold uppercase tracking-wider">Luz Adriana Osorno M. - Norte Inmobiliario SAS</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE RESERVA / CALENDARIO -->
+    <div id="agendar-modal" class="modal-overlay">
+        <div class="modal-content">
+            <!-- El contenido del calendario interactivo se genera e inyecta dinámicamente con JavaScript -->
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION PARA FEEDBACK FLOTANTE -->
+    <div id="toast" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-[#1C8706] text-white px-6 py-3 rounded-full shadow-2xl font-semibold text-sm opacity-0 pointer-events-none transition-all duration-300 z-[2000] flex items-center gap-2">
+        <i class="fas fa-check-circle text-lg"></i>
+        <span id="toast-message">¡Copiado con éxito!</span>
+    </div>
+
+    <!-- Lógica de control de interactividad, Popups, Calendario, Compartir y Descarga VCF -->
+    <script>
+        // --- Gestión del Toast ---
+        const showToast = (message) => {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toast-message');
+            toastMessage.textContent = message;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            toast.classList.add('opacity-100');
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 3000);
+        };
+
+        // --- Gestión de Compartir Tarjeta ---
+        const shareCardBtn = document.getElementById('share-card-btn');
+        if (shareCardBtn) {
+            shareCardBtn.addEventListener('click', async () => {
+                const shareData = {
+                    title: 'Luz Adriana Osorno M. - Norte Inmobiliario SAS',
+                    text: 'Te comparto la tarjeta digital interactiva de Luz Adriana Osorno M., Representante Legal de Norte Inmobiliario SAS.',
+                    url: window.location.href
+                };
+
+                // Si Web Share API está disponible nativamente
+                if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+                    try {
+                        await navigator.share(shareData);
+                        return;
+                    } catch (err) {
+                        console.log("No se pudo usar Web Share API, reanudando método alterno.");
+                    }
+                }
+
+                // Fallback: Copiado al portapapeles usando el método seguro adaptado a frames
+                try {
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = window.location.href;
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    showToast("¡Enlace copiado al portapapeles!");
+                } catch (err) {
+                    showToast("Por favor, copia el enlace desde la barra del navegador.");
+                }
+            });
+        }
+
+        // --- Gestión de Popups Generales ---
+        const servicesBtn = document.getElementById('services-btn');
+        const servicesModal = document.getElementById('services-modal');
+
+        if(servicesBtn && servicesModal) {
+            const openModal = () => servicesModal.classList.add('active');
+            const closeModal = () => servicesModal.classList.remove('active');
+            servicesBtn.addEventListener('click', openModal);
+            servicesModal.querySelector('.modal-close-btn').addEventListener('click', closeModal);
+            servicesModal.addEventListener('click', (event) => { if (event.target === servicesModal) closeModal(); });
+        }
+       
+        const horarioBtn = document.getElementById('horario-btn');
+        const horarioModal = document.getElementById('horario-modal');
+
+        if(horarioBtn && horarioModal){
+            const openHorarioModal = () => horarioModal.classList.add('active');
+            const closeHorarioModal = () => horarioModal.classList.remove('active');
+            horarioBtn.addEventListener('click', openHorarioModal);
+            horarioModal.querySelector('.modal-close-btn').addEventListener('click', closeHorarioModal);
+            horarioModal.addEventListener('click', (event) => { if (event.target === horarioModal) closeHorarioModal(); });
+        }
+
+        const installBtn = document.getElementById('install-btn');
+        const installModal = document.getElementById('install-modal');
+
+        if(installBtn && installModal) {
+            const openInstallModal = () => installModal.classList.add('active');
+            const closeInstallModal = () => installModal.classList.remove('active');
+            installBtn.addEventListener('click', openInstallModal);
+            installModal.querySelector('.modal-close-btn').addEventListener('click', closeInstallModal);
+            installModal.addEventListener('click', (event) => { if (event.target === installModal) closeInstallModal(); });
+        }
+        
+        const qrCodeBtn = document.getElementById('qr-code-btn');
+        const qrCodeModal = document.getElementById('qr-code-modal');
+
+        if(qrCodeBtn && qrCodeModal){
+            const openQrCodeModal = () => qrCodeModal.classList.add('active');
+            const closeQrCodeModal = () => qrCodeModal.classList.remove('active');
+            qrCodeBtn.addEventListener('click', openQrCodeModal);
+            qrCodeModal.querySelector('.modal-close-btn').addEventListener('click', closeQrCodeModal);
+            qrCodeModal.addEventListener('click', (event) => { if (event.target === qrCodeModal) closeQrCodeModal(); });
+        }
+
+        // --- Gestión de Guardar Contacto (VCF Corregido a 3104238600) ---
+        const saveContactBtn = document.getElementById('save-contact-btn');
+        if(saveContactBtn) {
+            const saveContact = () => {
+                const vCard = "BEGIN:VCARD\n" +
+                              "VERSION:3.0\n" +
+                              "FN:Luz Adriana Osorno M.\n" +
+                              "ORG:Norte Inmobiliario SAS\n" +
+                              "TITLE:Representante Legal\n" +
+                              "TEL;TYPE=CELL,VOICE:3104238600\n" +
+                              "TEL;TYPE=WORK,WA:+573104238600\n" +
+                              "EMAIL:norteinmobiliariosas@gmail.com\n" +
+                              "URL:https://www.norteinmobiliario.co/\n" +
+                              "END:VCARD";
+                const blob = new Blob([vCard], { type: "text/vcard" });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = "LuzAdrianaOsorno.vcf";
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                showToast("¡Contacto descargado!");
+            };
+            saveContactBtn.addEventListener('click', saveContact);
+        }
+
+        // --- STREAMING_CHUNK: Configurando calendario interactivo de asesorías... ---
+        // --- Gestión de la Agenda de Asesoría ---
+        const agendarModalTrigger = document.getElementById('agendar-modal-trigger');
+        const agendarModal = document.getElementById('agendar-modal');
+        
+        let currentDate = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+
+        const openAgendarModal = () => {
+            // Cierra el modal de horarios antes de abrir el calendario
+            if(horarioModal) horarioModal.classList.remove('active');
+            
+            const modalContentEl = agendarModal.querySelector('.modal-content');
+            modalContentEl.innerHTML = `
+                <div class="modal-header">
+                    <h2 id="agendar-title" class="modal-header-title">Fecha de Asesoría</h2>
+                    <button class="modal-close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div id="calendar-view">
+                        <p class="text-xs text-gray-500 mb-4 text-center">Selecciona un día hábil para tu asesoría inmobiliaria virtual.</p>
+                        <div class="flex items-center justify-between mb-4">
+                            <button id="prev-month-btn" class="text-gray-600 hover:text-[#1C8706] text-2xl p-2 rounded-full leading-none">&larr;</button>
+                            <h3 id="month-year" class="text-sm font-bold text-gray-700 uppercase"></h3>
+                            <button id="next-month-btn" class="text-gray-600 hover:text-[#1C8706] text-2xl p-2 rounded-full leading-none">&rarr;</button>
+                        </div>
+                        <div class="grid grid-cols-7 gap-1 text-center text-[11px] text-gray-400 font-bold mb-2">
+                            <div>Do</div><div>Lu</div><div>Ma</div><div>Mi</div><div>Ju</div><div>Vi</div><div>Sá</div>
+                        </div>
+                        <div id="calendar-days" class="grid grid-cols-7 gap-1 text-center"></div>
+                    </div>
+                    <div id="time-view" class="hidden">
+                        <button id="back-to-calendar-btn" class="text-xs text-[#1C8706] hover:underline mb-4 font-semibold flex items-center gap-1">&larr; Volver al calendario</button>
+                        <p id="selected-date-text" class="text-center text-gray-700 mb-4 font-bold text-sm bg-gray-50 py-2 rounded-xl border border-gray-100"></p>
+                        <div id="time-slots" class="grid grid-cols-3 gap-2"></div>
+                        <button id="confirm-appointment-btn" class="w-full mt-6 py-3 bg-[#1C8706] text-white font-bold rounded-xl hover:bg-[#1D1D1B] transition disabled:bg-gray-300 disabled:cursor-not-allowed shadow-md" disabled>Confirmar Horario</button>
+                    </div>
+                </div>
+            `;
+            
+            // Re-vincular eventos del modal dinámico
+            modalContentEl.querySelector('.modal-close-btn').addEventListener('click', closeAgendarModal);
+            document.getElementById('prev-month-btn').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(); });
+            document.getElementById('next-month-btn').addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(); });
+            document.getElementById('back-to-calendar-btn').addEventListener('click', resetAppointmentView);
+            document.getElementById('confirm-appointment-btn').addEventListener('click', confirmAppointment);
+
+            agendarModal.classList.add('active');
+            resetAppointmentView();
+            renderCalendar();
+        };
+
+        const closeAgendarModal = () => agendarModal.classList.remove('active');
+
+        const renderCalendar = () => {
+            currentDate.setDate(1);
+            const month = currentDate.getMonth();
+            const year = currentDate.getFullYear();
+            
+            document.getElementById('month-year').textContent = new Date(year, month).toLocaleString('es-ES', { month: 'long', year: 'numeric' });
+            
+            const calendarDaysEl = document.getElementById('calendar-days');
+            calendarDaysEl.innerHTML = '';
+            
+            const firstDayOfMonth = currentDate.getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            const today = new Date();
+            const todayTimestamp = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime();
+
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                calendarDaysEl.insertAdjacentHTML('beforeend', '<div></div>');
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayEl = document.createElement('div');
+                dayEl.textContent = day;
+                dayEl.classList.add('calendar-day', 'h-9', 'w-9', 'flex', 'items-center', 'justify-center', 'cursor-pointer', 'rounded-full', 'text-sm');
+                
+                const dayDate = new Date(year, month, day);
+                const dayOfWeek = dayDate.getDay();
+
+                // Deshabilitar días pasados y domingos de descanso
+                if (dayDate.getTime() < todayTimestamp || dayOfWeek === 0) { 
+                    dayEl.classList.add('disabled');
+                } else {
+                    dayEl.addEventListener('click', () => selectDate(dayDate));
+                }
+                
+                if (dayDate.toDateString() === today.toDateString()) {
+                    dayEl.classList.add('today');
+                }
+                
+                if (selectedDate && dayDate.toDateString() === selectedDate.toDateString()) {
+                    dayEl.classList.add('selected');
+                }
+
+                calendarDaysEl.appendChild(dayEl);
+            }
+        };
+
+        const selectDate = (date) => {
+            selectedDate = date;
+            renderCalendar();
+            showTimeView();
+        };
+
+        const showTimeView = () => {
+            document.getElementById('calendar-view').classList.add('hidden');
+            document.getElementById('time-view').classList.remove('hidden');
+            document.getElementById('agendar-title').textContent = 'Selecciona una Hora';
+            document.getElementById('selected-date-text').textContent = selectedDate.toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            renderTimeSlots();
+        };
+
+        const renderTimeSlots = () => {
+            const timeSlotsContainerEl = document.getElementById('time-slots');
+            timeSlotsContainerEl.innerHTML = '';
+            selectedTime = null;
+            document.getElementById('confirm-appointment-btn').disabled = true;
+
+            let availableTimes = [];
+            const dayOfWeek = selectedDate.getDay();
+
+            // Horarios de lunes a viernes y sábados
+            if (dayOfWeek >= 1 && dayOfWeek <= 5) {
+                availableTimes = ['08:00', '09:00', '10:00', '11:00', '12:00', '14:00', '15:00', '16:00'];
+            } else if (dayOfWeek === 6) {
+                availableTimes = ['09:00', '10:00', '11:00'];
+            }
+
+            if (availableTimes.length === 0) {
+                timeSlotsContainerEl.innerHTML = '<p class="col-span-full text-center text-xs text-gray-500 py-4">No hay horarios disponibles.</p>';
+                return;
+            }
+
+            availableTimes.forEach(time => {
+                const timeSlotEl = document.createElement('div');
+                timeSlotEl.textContent = time;
+                timeSlotEl.classList.add('time-slot', 'p-2', 'rounded-xl', 'text-center', 'cursor-pointer', 'font-mono', 'text-sm');
+                timeSlotEl.addEventListener('click', () => {
+                    document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+                    timeSlotEl.classList.add('selected');
+                    selectedTime = time;
+                    document.getElementById('confirm-appointment-btn').disabled = false;
+                });
+                timeSlotsContainerEl.appendChild(timeSlotEl);
+            });
+        };
+
+        const resetAppointmentView = () => {
+            document.getElementById('time-view').classList.add('hidden');
+            document.getElementById('calendar-view').classList.remove('hidden');
+            document.getElementById('agendar-title').textContent = 'Fecha de Asesoría';
+            selectedDate = null;
+            selectedTime = null;
+        };
+        
+        // --- Confirmar Cita (WhatsApp corregido a 3104238600) ---
+        const confirmAppointment = () => {
+            const modalContent = agendarModal.querySelector('.modal-content');
+            const dateStr = selectedDate.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+            
+            // Envío por WhatsApp con plantilla de fecha y hora preestablecidas (Corregido a 3104238600)
+            const message = `Hola Luz Adriana, me gustaría agendar una asesoría inmobiliaria virtual el día ${dateStr} a las ${selectedTime}.`;
+            const waUrl = `https://wa.me/573104238600?text=${encodeURIComponent(message)}`;
+
+            modalContent.innerHTML = `
+                <div class="modal-body text-center p-8">
+                    <div class="text-7xl text-[#1C8706] mb-4"><i class="fas fa-check-circle"></i></div>
+                    <h2 class="text-xl font-bold text-[#1D1D1B] mb-2">¡Pre-reserva Exitosa!</h2>
+                    <p class="text-xs text-gray-500 mb-4">Tu solicitud para el día</p>
+                    <p class="font-bold text-gray-800 text-sm my-2 bg-gray-50 border border-gray-100 p-3 rounded-xl">${dateStr} a las ${selectedTime}</p>
+                    <p class="text-xs text-gray-500 my-4">Para confirmar inmediatamente con Luz Adriana, presiona el botón de abajo y envíale la propuesta vía WhatsApp.</p>
+                    <div class="flex flex-col gap-2 mt-6">
+                        <a href="${waUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-3 bg-[#25D366] text-white font-bold rounded-xl hover:opacity-90 transition flex items-center justify-center gap-2">
+                            <i class="fab fa-whatsapp"></i>
+                            <span>Enviar por WhatsApp</span>
+                        </a>
+                        <button id="final-close-btn" class="w-full py-2 bg-gray-100 text-gray-600 font-semibold rounded-xl hover:bg-gray-200 transition text-xs">Cerrar</button>
+                    </div>
+                </div>
+            `;
+            document.getElementById('final-close-btn').addEventListener('click', closeAgendarModal);
+        }
+        
+        if (agendarModalTrigger && agendarModal) {
+            agendarModalTrigger.addEventListener('click', openAgendarModal);
+            agendarModal.addEventListener('click', (event) => {
+                if (event.target === agendarModal) closeAgendarModal();
+            });
+        }
+    </script>
+</body>
+</html>
