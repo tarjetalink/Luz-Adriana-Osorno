@@ -6,15 +6,13 @@
     <title>Tarjeta Digital - Luz Adriana Osorno M. - Norte Inmobiliario SAS</title>
     <!-- Favicon Dinámico -->
     <link rel="shortcut icon" href="https://i.postimg.cc/7hdxdD02/o.png" type="image/x-icon">
-    <!-- Carga de Tailwind CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Carga de Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Carga de Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+        
     <style>
         :root {
             --primary: #1C8706;
@@ -22,12 +20,25 @@
             --accent-green: #25D366;
             --light-grey: #EBEBEB;
         }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             background-color: #0f172a;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 0;
         }
+
         .card-container {
             width: 100%;
             margin: 0;
@@ -37,6 +48,7 @@
             background-color: #ffffff;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
         }
+
         @media (min-width: 450px) {
             .card-container {
                 max-width: 420px;
@@ -46,12 +58,14 @@
                 overflow: hidden;
             }
         }
+
         .main-bg {
             background-image: url('https://i.postimg.cc/8zh1K25G/Chat-GPT-Image-29-may-2026-19-58-48.png');
             background-size: cover;
             background-position: center;
             height: 220px;
         }
+
         .content-section {
             background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
             margin-top: -60px;
@@ -61,18 +75,31 @@
             padding-bottom: 2.5rem;
             flex-grow: 1;
         }
+
+        .profile-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 1.5rem;
+            text-align: center;
+        }
+
         .profile-container {
             position: relative;
             width: 150px;
             height: 150px;
             margin-top: -105px;
         }
+
         .profile-pic {
             width: 100%;
             height: 100%;
             border: 5px solid var(--primary);
             box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+            object-fit: cover;
+            border-radius: 9999px;
         }
+
         .verification-badge {
             position: absolute;
             top: 5px;
@@ -88,40 +115,245 @@
             border: 3px solid white;
             box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin-top: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        .profile-role {
+            font-size: 1rem;
+            color: #FFFFFF;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-top: 0.25rem;
+        }
+
+        .profile-divider {
+            width: 3rem;
+            height: 4px;
+            background-color: var(--primary);
+            margin: 0.75rem 0;
+            border-radius: 0.25rem;
+        }
+
+        .profile-quote {
+            color: white;
+            font-size: 1rem;
+            opacity: 0.9;
+            max-width: 24rem;
+            font-style: italic;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 20rem;
+            margin: 1.5rem auto 0 auto;
+        }
+
+        @media (min-width: 640px) {
+            .action-buttons {
+                flex-direction: row;
+            }
+        }
+
         .action-btn {
             background-color: var(--primary);
             color: white;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             cursor: pointer;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            padding: 0.75rem 0;
+            border-radius: 9999px;
+            font-size: 1rem;
+            text-decoration: none;
+            border: none;
         }
+
         .action-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(28, 135, 6, 0.5);
         }
-        .action-btn-whatsapp {
-            background-color: var(--accent-green);
+
+        .action-instruction {
             color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
+            opacity: 0.6;
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
-        .action-btn-whatsapp:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 0.75rem;
+            width: 100%;
+            max-width: 24rem;
+            margin: 1rem auto 0 auto;
         }
-        .social-btn {
+
+        .social-button {
             background-color: rgba(255, 255, 255, 0.08);
             color: white;
             transition: all 0.3s ease;
             cursor: pointer;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0.75rem 0;
+            width: 100%;
+            height: 5rem;
+            border-radius: 1rem;
+            text-decoration: none;
         }
-        .social-btn:hover {
+
+        .social-button:hover {
             background-color: rgba(255, 255, 255, 0.18);
             transform: scale(1.03);
             border-color: var(--primary);
         }
+
+        .social-button i {
+            font-size: 1.5rem;
+            color: #E5E7EB;
+        }
+
+        .social-button span {
+            font-size: 10px;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .info-card {
+            width: 100%;
+            max-width: 24rem;
+            margin: 2rem auto 0 auto;
+            padding: 1.5rem 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .info-card-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.025em;
+            margin-bottom: 0.75rem;
+        }
+
+        .info-card-text {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .info-card-text-spaced {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            font-weight: 300;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .share-button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--primary);
+            color: white;
+            font-weight: 700;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .share-button:hover {
+            background-color: white;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .install-guide-link {
+            color: white;
+            opacity: 0.7;
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            text-decoration: underline;
+            letter-spacing: 0.05em;
+        }
+
+        .install-guide-link:hover {
+            opacity: 1;
+        }
+
+        .footer-banner {
+            text-align: center;
+            padding: 1.25rem 1rem;
+            font-weight: 600;
+            flex-shrink: 0;
+            background-color: var(--light-grey);
+            color: var(--secondary);
+        }
+
+        .footer-title {
+            font-size: 1rem;
+            letter-spacing: 0.025em;
+            font-weight: 700;
+        }
+
+        .footer-email {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--primary);
+            text-decoration: none;
+            margin-top: 0.25rem;
+            font-weight: 400;
+        }
+
+        .footer-email:hover {
+            text-decoration: underline;
+        }
+
+        .footer-copy {
+            font-size: 10px;
+            color: #6b7280;
+            margin-top: 1rem;
+            font-weight: 400;
+        }
+
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -138,10 +370,12 @@
             transition: opacity 0.3s ease, visibility 0.3s ease;
             backdrop-filter: blur(6px);
         }
+
         .modal-overlay.active {
             opacity: 1;
             visibility: visible;
         }
+
         .modal-content {
             background: #ffffff;
             border-radius: 24px;
@@ -157,15 +391,18 @@
             border: 4px solid var(--primary);
             opacity: 0;
         }
+
         .modal-overlay.active .modal-content {
             transform: scale(1) translateY(0);
             opacity: 1;
         }
+
         .modal-header {
             padding: 1.25rem 1.5rem;
             border-bottom: 1px solid #f0f4f8;
             position: relative;
         }
+
         .modal-header-title {
             font-size: 1.5rem;
             font-weight: 700;
@@ -174,6 +411,7 @@
             max-width: calc(100% - 90px);
             margin: 0 auto;
         }
+
         .modal-header-title::after {
             content: '';
             display: block;
@@ -183,11 +421,13 @@
             margin: 8px auto 0;
             border-radius: 2px;
         }
+
         .modal-body {
             padding: 1.5rem;
             overflow-y: auto;
             flex-grow: 1;
         }
+
         .modal-close-btn {
             position: absolute;
             top: 0.75rem;
@@ -205,127 +445,340 @@
             justify-content: center;
             transition: all 0.3s ease;
         }
+
         .modal-close-btn:hover {
             background-color: var(--primary);
             color: white;
             transform: rotate(90deg);
         }
+
+        .share-options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+
+        .share-option-btn {
+            color: #374151;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            border: 1px solid #f3f4f6;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+            cursor: pointer;
+            font-size: 0.875rem;
+            width: 100%;
+            text-align: left;
+        }
+
+        .share-option-btn:hover {
+            background-color: #f9fafb;
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: left;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            transition: background-color 0.2s ease;
+            border: 1px solid transparent;
+            text-decoration: none;
+        }
+
+        .service-item:hover {
+            background-color: #f9fafb;
+            border-color: #e5e7eb;
+        }
+
+        .service-item:hover .service-title {
+            color: var(--primary);
+        }
+
+        .service-item:hover .service-arrow {
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .service-content-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .service-img {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 0.75rem;
+            object-fit: cover;
+            flex-shrink: 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-title {
+            font-weight: 700;
+            color: #1f2937;
+            font-size: 1rem;
+            transition: color 0.2s ease;
+        }
+
+        .service-desc {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.25rem;
+        }
+
+        .service-arrow {
+            color: #d1d5db;
+            transition: transform 0.2s ease, color 0.2s ease;
+            padding-left: 0.5rem;
+        }
+
+        .schedule-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            color: #374151;
+        }
+
+        .schedule-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 0.75rem;
+        }
+
+        .schedule-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .schedule-day {
+            font-weight: 600;
+            color: #1D1D1B;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .schedule-day i {
+            width: 1.25rem;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .schedule-time {
+            font-family: monospace;
+            background-color: #f3f4f6;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            color: #374151;
+            font-weight: 600;
+        }
+
+        .install-guide-box {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .install-section {
+            padding: 1rem;
+            background-color: #f9fafb;
+            border-radius: 0.75rem;
+            border: 1px solid #f3f4f6;
+        }
+
+        .install-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .install-steps {
+            list-style-type: decimal;
+            list-style-position: inside;
+            color: #4b5563;
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+            font-size: 0.75rem;
+        }
+
+        .qr-box-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 0.75rem;
+            background-color: white;
+            border-radius: 1rem;
+            border: 1px solid #f3f4f6;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+            margin: 0 auto;
+            max-width: 220px;
+        }
+
+        .qr-image-element {
+            border-radius: 0.5rem;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 1.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            font-weight: 600;
+            font-size: 0.875rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toast-notification.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center py-4">
+<body>
     <div class="card-container">
         <!-- SECCIÓN DE IMAGEN SUPERIOR -->
         <div class="main-bg"></div>
-        
+                
         <div class="content-section">
-            <div class="flex flex-col items-center px-6 text-center">
+            <div class="profile-content">
                 <!-- Foto de Perfil y Check de Verificación -->
                 <div class="profile-container">
-                    <img src="https://i.postimg.cc/7hdxdD02/o.png" alt="Luz Adriana Osorno M." class="profile-pic object-cover rounded-full">
+                    <img src="https://i.postimg.cc/7hdxdD02/o.png" alt="Luz Adriana Osorno M." class="profile-pic">
                     <div class="verification-badge">
-                        <i class="fas fa-check text-sm"></i>
+                        <i class="fas fa-check" style="font-size: 0.875rem;"></i>
                     </div>
                 </div>
-                
+                                
                 <!-- Títulos e Información General -->
-                <h1 class="text-2xl font-bold text-white mt-4 tracking-tight">Luz Adriana Osorno M.</h1>
-                <p class="text-md text-[#FFFFFF] font-semibold tracking-wider uppercase mt-1">Representante Legal</p>
-                <div class="w-12 h-1 bg-[var(--primary)] my-3 rounded"></div>
-                <p class="text-white text-md opacity-90 max-w-sm italic">"Confianza que construye futuro"</p>
-                
+                <h1 class="profile-name">Luz Adriana Osorno M.</h1>
+                <p class="profile-role">Representante Legal</p>
+                <div class="profile-divider"></div>
+                <p class="profile-quote">"Confianza que construye futuro"</p>
+                                
                 <!-- Botones Principales de Acción -->
-                <div class="flex flex-col sm:flex-row gap-3 w-full max-w-xs mx-auto mt-6">
+                <div class="action-buttons">
                     <!-- Botón de LLAMAR -->
-                    <a href="tel:3206620632" class="action-btn flex-1 flex items-center justify-center gap-2 font-semibold py-3 rounded-full text-md">
+                    <a href="tel:3206620632" class="action-btn">
                         <i class="fas fa-phone-alt"></i>
                         <span>Llamar</span>
                     </a>
                     <!-- Botón Sitio Web -->
-                    <a href="https://www.norteinmobiliario.co/" target="_blank" rel="noopener noreferrer" class="action-btn flex-1 flex items-center justify-center gap-2 font-semibold py-3 rounded-full text-md">
+                    <a href="https://www.norteinmobiliario.co/" target="_blank" rel="noopener noreferrer" class="action-btn">
                         <i class="fas fa-globe"></i>
                         <span>Sitio Web</span>
                     </a>
                 </div>
 
-                <p class="text-white opacity-60 mt-8 text-xs uppercase tracking-widest">Toca para interactuar</p>
+                <p class="action-instruction">Toca para interactuar</p>
 
                 <!-- Grid de Botones de Interacción -->
-                <div class="grid grid-cols-4 gap-3 w-full max-w-sm mx-auto mt-4">
+                <div class="social-grid">
                     <!-- Servicios -->
-                    <div id="services-btn" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
-                        <i class="fas fa-cubes text-2xl text-[#E5E7EB]"></i>
-                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Servicios</span>
+                    <div id="services-btn" class="social-button">
+                        <i class="fas fa-cubes"></i>
+                        <span>Servicios</span>
                     </div>
                     <!-- Horario -->
-                    <div id="horario-btn" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
-                        <i class="fas fa-calendar-alt text-2xl text-[#E5E7EB]"></i>
-                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Horario</span>
+                    <div id="horario-btn" class="social-button">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Horario</span>
                     </div>
                     <!-- Código QR -->
-                    <div id="qr-code-btn" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
-                        <i class="fas fa-qrcode text-2xl text-[#E5E7EB]"></i>
-                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Código QR</span>
+                    <div id="qr-code-btn" class="social-button">
+                        <i class="fas fa-qrcode"></i>
+                        <span>Código QR</span>
                     </div>
                     <!-- Ubicación -->
-                    <a href="https://maps.app.goo.gl/1bh7TWtfP15D7bz39" target="_blank" rel="noopener noreferrer" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
-                        <i class="fas fa-map-marker-alt text-2xl text-[#E5E7EB]"></i>
-                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Ubicación</span>
+                    <a href="https://maps.app.goo.gl/1bh7TWtfP15D7bz39" target="_blank" rel="noopener noreferrer" class="social-button">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Ubicación</span>
                     </a>
-                    
+                                        
                     <!-- Facebook -->
-                    <a href="https://www.facebook.com/inmonorteinmobiliario" target="_blank" rel="noopener noreferrer" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
-                        <i class="fab fa-facebook-f text-2xl text-[#E5E7EB]"></i>
-                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Facebook</span>
+                    <a href="https://www.facebook.com/inmonorteinmobiliario" target="_blank" rel="noopener noreferrer" class="social-button">
+                        <i class="fab fa-facebook-f"></i>
+                        <span>Facebook</span>
                     </a>
                     <!-- Instagram -->
-                    <a href="https://www.instagram.com/norteinmobiliariosas/" target="_blank" rel="noopener noreferrer" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
-                        <i class="fab fa-instagram text-2xl text-[#E5E7EB]"></i>
-                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Instagram</span>
+                    <a href="https://www.instagram.com/norteinmobiliariosas/" target="_blank" rel="noopener noreferrer" class="social-button">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
                     </a>
-                    
+                                        
                     <!-- Botón de WHATSAPP -->
-                    <a href="https://wa.me/573206620632?text=Hola.%20He%20visitado%20su%20tarjeta%20digital%20y%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20sus%20servicios.%20Quedo%20atento(a)%20a%20su%20respuesta.%20Gracias." target="_blank" rel="noopener noreferrer" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
-                        <i class="fab fa-whatsapp text-2xl text-[#E5E7EB]"></i>
-                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">WhatsApp</span>
+                    <a href="https://wa.me/573206620632?text=Hola.%20He%20visitado%20su%20tarjeta%20digital%20y%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n%20sobre%20sus%20servicios.%20Quedo%20atento(a)%20a%20su%20respuesta.%20Gracias." target="_blank" rel="noopener noreferrer" class="social-button">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp</span>
                     </a>
                     <!-- Guardar Contacto -->
-                    <div id="save-contact-btn" class="social-btn flex flex-col justify-center items-center py-3 w-full h-20 rounded-2xl">
-                        <i class="fas fa-user-plus text-2xl text-[#E5E7EB]"></i>
-                        <span class="text-[10px] mt-2 font-semibold uppercase text-center">Guardar</span>
+                    <div id="save-contact-btn" class="social-button">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Guardar</span>
                     </div>
                 </div>
 
                 <!-- Sección Informativa -->
-                <div class="w-full max-w-sm mx-auto mt-8 px-5 py-6 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-md shadow-lg text-center">
-                    <h2 class="text-lg font-bold text-white tracking-tight mb-3">
-                        Te ayudamos a encontrar tu hogar ideal
-                    </h2>
-                    <p class="text-xs text-white/90 leading-relaxed font-light">
-                        Encontramos propiedades que se adaptan a tus necesidades, tu estilo de vida y tus planes a futuro.
-                    </p>
-                    <p class="text-xs text-white/90 leading-relaxed font-light mt-2 mb-4">
-                        Te acompañamos en cada paso para que elegir tu hogar ideal sea una experiencia segura, sencilla y sin estrés.
-                    </p>
-                    
+                <div class="info-card">
+                    <h2 class="info-card-title">Te ayudamos a encontrar tu hogar ideal</h2>
+                    <p class="info-card-text">Encontramos propiedades que se adaptan a tus necesidades, tu estilo de vida y tus planes a futuro.</p>
+                    <p class="info-card-text-spaced">Te acompañamos en cada paso para que elegir tu hogar ideal sea una experiencia segura, sencilla y sin estrés.</p>
+                                        
                     <!-- Botón para Compartir -->
-                    <button id="share-card-btn" class="w-full py-3 bg-[var(--primary)] text-white font-bold rounded-xl shadow-lg hover:bg-white hover:text-[var(--primary)] transition-all duration-300 flex items-center justify-center gap-2 text-sm border border-transparent hover:border-[var(--primary)]">
-                        <i class="fas fa-share-nodes text-lg"></i>
+                    <button id="share-card-btn" class="share-button">
+                        <i class="fas fa-share-nodes" style="font-size: 1.125rem;"></i>
                         <span>Compartir esta Tarjeta</span>
                     </button>
                 </div>
 
                 <!-- Instructivo de Instalación -->
-                <div id="install-btn" class="text-white opacity-70 mt-8 text-xs text-center cursor-pointer hover:opacity-100 transition underline tracking-wider">
+                <div id="install-btn" class="install-guide-link">
                     ¿Cómo instalar esta tarjeta en mi móvil?
                 </div>
             </div>
         </div>
-        
+                
         <!-- Footer -->
-        <div class="footer-banner text-center py-5 px-4 font-semibold shrink-0" style="background-color: var(--light-grey); color: var(--secondary);">
-            <p class="text-base tracking-wide font-bold">Norte Inmobiliario SAS</p>
-            <a href="mailto:norteinmobiliariosas@gmail.com" class="block text-xs text-[var(--primary)] hover:underline mt-1 font-normal">norteinmobiliariosas@gmail.com</a>
-            <p class="text-[10px] text-gray-500 mt-4 font-normal">© 2026 Tarjeta Link. Todos los derechos reservados.</p>
+        <div class="footer-banner">
+            <p class="footer-title">Norte Inmobiliario SAS</p>
+            <a href="mailto:norteinmobiliariosas@gmail.com" class="footer-email">norteinmobiliariosas@gmail.com</a>
+            <p class="footer-copy">© 2026 Tarjeta Link. Todos los derechos reservados.</p>
         </div>
     </div>
 
@@ -337,58 +790,171 @@
                 <button class="modal-close-btn">&times;</button>
             </div>
             <div class="modal-body">
-                <p class="text-center text-gray-600 mb-6 text-sm">Selecciona dónde deseas compartir esta tarjeta</p>
-                <div class="grid grid-cols-1 gap-3">
-                    <a href="https://wa.me/?text=Te%20comparto%20mi%20tarjeta%20digital%3A%20" target="_blank" id="share-wa" class="share-option-btn text-gray-700 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 flex items-center gap-3">
-                        <i class="fab fa-whatsapp text-green-500 text-xl"></i> WhatsApp
+                <p style="text-align: center; color: #4b5563; margin-bottom: 1.5rem; font-size: 0.875rem;">Selecciona dónde deseas compartir esta tarjeta</p>
+                <div class="share-options-grid">
+                    <a href="https://wa.me/?text=Te%20comparto%20mi%20tarjeta%20digital%3A%20" target="_blank" id="share-wa" class="share-option-btn">
+                        <i class="fab fa-whatsapp" style="color: #22c55e; font-size: 1.25rem;"></i> WhatsApp
                     </a>
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" id="share-fb" class="share-option-btn text-gray-700 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 flex items-center gap-3">
-                        <i class="fab fa-facebook text-blue-600 text-xl"></i> Facebook
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=" target="_blank" id="share-fb" class="share-option-btn">
+                        <i class="fab fa-facebook" style="color: #2563eb; font-size: 1.25rem;"></i> Facebook
                     </a>
-                    <a href="https://t.me/share/url?url=" target="_blank" id="share-tg" class="share-option-btn text-gray-700 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 flex items-center gap-3">
-                        <i class="fab fa-telegram text-blue-400 text-xl"></i> Telegram
+                    <a href="https://t.me/share/url?url=" target="_blank" id="share-tg" class="share-option-btn">
+                        <i class="fab fa-telegram" style="color: #38bdf8; font-size: 1.25rem;"></i> Telegram
                     </a>
-                    <a href="https://twitter.com/intent/tweet?url=" target="_blank" id="share-tw" class="share-option-btn text-gray-700 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 flex items-center gap-3">
-                        <i class="fab fa-x-twitter text-black text-xl"></i> X (Twitter)
+                    <a href="https://twitter.com/intent/tweet?url=" target="_blank" id="share-tw" class="share-option-btn">
+                        <i class="fab fa-x-twitter" style="color: #000000; font-size: 1.25rem;"></i> X (Twitter)
                     </a>
-                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=" target="_blank" id="share-li" class="share-option-btn text-gray-700 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 flex items-center gap-3">
-                        <i class="fab fa-linkedin text-blue-700 text-xl"></i> LinkedIn
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url=" target="_blank" id="share-li" class="share-option-btn">
+                        <i class="fab fa-linkedin" style="color: #1d4ed8; font-size: 1.25rem;"></i> LinkedIn
                     </a>
-                    <a href="mailto:?subject=Te comparto mi tarjeta digital&body=" id="share-mail" class="share-option-btn text-gray-700 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 flex items-center gap-3">
-                        <i class="fas fa-envelope text-red-500 text-xl"></i> Gmail / Correo
+                    <a href="mailto:?subject=Te comparto mi tarjeta digital&body=" id="share-mail" class="share-option-btn">
+                        <i class="fas fa-envelope" style="color: #ef4444; font-size: 1.25rem;"></i> Gmail / Correo
                     </a>
-                    <button id="copy-link-btn" class="share-option-btn text-gray-700 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 flex items-center gap-3">
-                        <i class="fas fa-copy text-gray-500 text-xl"></i> Copiar enlace
+                    <button id="copy-link-btn" class="share-option-btn">
+                        <i class="fas fa-copy" style="color: #6b7280; font-size: 1.25rem;"></i> Copiar enlace
                     </button>
-                    <button id="native-share-btn" class="share-option-btn text-gray-700 p-3 rounded-xl border border-gray-100 hover:bg-gray-50 flex items-center gap-3 hidden">
-                        <i class="fas fa-share-alt text-gray-500 text-xl"></i> Más aplicaciones
+                    <button id="native-share-btn" class="share-option-btn hidden">
+                        <i class="fas fa-share-alt" style="color: #6b7280; font-size: 1.25rem;"></i> Más aplicaciones
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- MODALES EXISTENTES -->
-    <div id="services-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h2 class="modal-header-title">Nuestros Servicios</h2><button class="modal-close-btn">&times;</button></div><div class="modal-body"><div class="grid grid-cols-1 gap-6 text-left"><a href="https://wa.me/573206620632" target="_blank" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 group"><div class="flex items-center space-x-4"><img src="https://i.postimg.cc/13Hqx8Rq/Gemini-Generated-Image-dpe415dpe415dpe4-(1).png" alt="Arrendamientos" class="w-16 h-16 rounded-xl object-cover flex-shrink-0 shadow-md"><div><h3 class="font-bold text-gray-800 text-base group-hover:text-[var(--primary)] transition-colors">Arrendamientos</h3><p class="text-xs text-gray-500 mt-1">Encuentra espacios ideales para vivir con tranquilidad y confianza.</p></div></div><i class="fas fa-chevron-right text-gray-300 group-hover:text-[var(--primary)] transition-transform group-hover:translate-x-1 pl-2"></i></a><a href="https://wa.me/573206620632" target="_blank" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 group"><div class="flex items-center space-x-4"><img src="https://i.postimg.cc/rwWrff3r/Gemini-Generated-Image-dpe415dpe415dpe4.png" alt="Ventas" class="w-16 h-16 rounded-xl object-cover flex-shrink-0 shadow-md"><div><h3 class="font-bold text-gray-800 text-base group-hover:text-[var(--primary)] transition-colors">Ventas</h3><p class="text-xs text-gray-500 mt-1">Conectamos personas con inmuebles que transforman su futuro.</p></div></div><i class="fas fa-chevron-right text-gray-300 group-hover:text-[var(--primary)] transition-transform group-hover:translate-x-1 pl-2"></i></a><a href="https://wa.me/573206620632" target="_blank" class="flex items-center justify-between p-3 rounded-xl hover:bg-gray-50 transition border border-transparent hover:border-gray-200 group"><div class="flex items-center space-x-4"><img src="https://i.postimg.cc/s2bfbzWQ/Gemini-Generated-Image-p891cyp891cyp891.png" alt="Administración" class="w-16 h-16 rounded-xl object-cover flex-shrink-0 shadow-md"><div><h3 class="font-bold text-gray-800 text-base group-hover:text-[var(--primary)] transition-colors">Administración</h3><p class="text-xs text-gray-500 mt-1">Gestionamos tu inmueble con compromiso, respaldo y tranquilidad.</p></div></div><i class="fas fa-chevron-right text-gray-300 group-hover:text-[var(--primary)] transition-transform group-hover:translate-x-1 pl-2"></i></i></a></div></div></div></div>
-    <div id="horario-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h2 class="modal-header-title">Horario de Atención</h2><button class="modal-close-btn">&times;</button></div><div class="modal-body"><div class="space-y-4 text-gray-700"><div class="flex justify-between items-center border-b border-gray-100 pb-3"><span class="font-semibold text-[#1D1D1B] flex items-center gap-3"><i class="far fa-calendar-alt w-5 text-center text-[var(--primary)]"></i>Lunes a Viernes</span><span class="font-mono bg-gray-100 px-2 py-1 rounded text-xs text-gray-700 font-semibold">08:00 - 13:00 / 14:00 - 17:00</span></div><div class="flex justify-between items-center border-b border-gray-100 pb-3"><span class="font-semibold text-[#1D1D1B] flex items-center gap-3"><i class="far fa-calendar w-5 text-center text-[var(--primary)]"></i>Sábados</span><span class="font-mono bg-gray-100 px-2 py-1 rounded text-xs text-gray-700 font-semibold">09:00 - 12:00</span></div><div class="flex justify-between items-center"><span class="font-semibold text-[#1D1D1B] flex items-center gap-3"><i class="far fa-calendar-times w-5 text-center text-[var(--primary)]"></i>Domingos</span><span class="font-mono bg-gray-100 px-2 py-1 rounded text-xs text-gray-700 font-semibold">Cerrado</span></div></div></div></div></div>
-    <div id="install-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h2 class="modal-header-title">¡Guarda mi Tarjeta!</h2><button class="modal-close-btn">&times;</button></div><div class="modal-body"><p class="text-center text-gray-600 mb-6 text-sm">Accede a toda mi información de contacto en cualquier momento instalando este enlace en tu pantalla de inicio.</p><div class="flex flex-col gap-4"><div class="p-4 bg-gray-50 rounded-xl border border-gray-100"><h3 class="text-md font-bold text-[var(--primary)] mb-2 flex items-center gap-2"><i class="fab fa-apple"></i> Para iOS (iPhone)</h3><ol class="list-decimal list-inside text-gray-600 space-y-1.5 text-xs"><li>Toca el botón <strong>Compartir</strong> <i class="fas fa-share-square"></i> en Safari.</li><li>Busca y selecciona <strong>"Agregar a pantalla de inicio"</strong>.</li><li>¡Listo! El icono de la empresa aparecerá en tu móvil.</li></ol></div><div class="p-4 bg-gray-50 rounded-xl border border-gray-100"><h3 class="text-md font-bold text-[var(--primary)] mb-2 flex items-center gap-2"><i class="fab fa-android"></i> Para Android</h3><ol class="list-decimal list-inside text-gray-600 space-y-1.5 text-xs"><li>Toca los <strong>tres puntos</strong> <i class="fas fa-ellipsis-v"></i> en Chrome.</li><li>Selecciona <strong>"Agregar a la pantalla principal"</strong>.</li><li>Acepta y tendrás acceso instantáneo desde el escritorio de tu celular.</li></ol></div></div></div></div></div>
-    <div id="qr-code-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h2 class="modal-header-title">Escanear Contacto</h2><button class="modal-close-btn">&times;</button></div><div class="modal-body text-center"><p class="text-gray-600 mb-5 text-sm">Enfoca la cámara de tu celular en este código para abrir mi perfil digital o almacenar directamente mis datos de contacto.</p><div class="flex justify-center p-3 bg-white rounded-2xl border border-gray-100 shadow-inner inline-block mx-auto max-w-[220px]"><img id="qr-image" src="" alt="Código QR Contacto" class="rounded-lg"></div><p class="text-[10px] text-gray-400 mt-4 font-semibold uppercase tracking-wider">Luz Adriana Osorno M. - Norte Inmobiliario SAS</p></div></div></div>
+    <!-- MODAL DE SERVICIOS -->
+    <div id="services-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-header-title">Nuestros Servicios</h2>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="services-list">
+                    <a href="https://wa.me/573206620632" target="_blank" class="service-item">
+                        <div class="service-content-wrapper">
+                            <img src="https://i.postimg.cc/13Hqx8Rq/Gemini-Generated-Image-dpe415dpe415dpe4-(1).png" alt="Arrendamientos" class="service-img">
+                            <div>
+                                <h3 class="service-title">Arrendamientos</h3>
+                                <p class="service-desc">Encuentra espacios ideales para vivir con tranquilidad y confianza.</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right service-arrow"></i>
+                    </a>
+                    <a href="https://wa.me/573206620632" target="_blank" class="service-item">
+                        <div class="service-content-wrapper">
+                            <img src="https://i.postimg.cc/rwWrff3r/Gemini-Generated-Image-dpe415dpe415dpe4.png" alt="Ventas" class="service-img">
+                            <div>
+                                <h3 class="service-title">Ventas</h3>
+                                <p class="service-desc">Conectamos personas con inmuebles que transforman su futuro.</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right service-arrow"></i>
+                    </a>
+                    <a href="https://wa.me/573206620632" target="_blank" class="service-item">
+                        <div class="service-content-wrapper">
+                            <img src="https://i.postimg.cc/s2bfbzWQ/Gemini-Generated-Image-p891cyp891cyp891.png" alt="Administración" class="service-img">
+                            <div>
+                                <h3 class="service-title">Administración</h3>
+                                <p class="service-desc">Gestionamos tu inmueble con compromiso, respaldo y tranquilidad.</p>
+                            </div>
+                        </div>
+                        <i class="fas fa-chevron-right service-arrow"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE HORARIO -->
+    <div id="horario-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-header-title">Horario de Atención</h2>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="schedule-container">
+                    <div class="schedule-row">
+                        <span class="schedule-day"><i class="far fa-calendar-alt"></i>Lunes a Viernes</span>
+                        <span class="schedule-time">08:00 - 13:00 / 14:00 - 17:00</span>
+                    </div>
+                    <div class="schedule-row">
+                        <span class="schedule-day"><i class="far fa-calendar"></i>Sábados</span>
+                        <span class="schedule-time">09:00 - 12:00</span>
+                    </div>
+                    <div class="schedule-row">
+                        <span class="schedule-day"><i class="far fa-calendar-times"></i>Domingos</span>
+                        <span class="schedule-time">Cerrado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE INSTALACIÓN -->
+    <div id="install-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-header-title">¡Guarda mi Tarjeta!</h2>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="text-align: center; color: #4b5563; margin-bottom: 1.5rem; font-size: 0.875rem;">Accede a toda mi información de contacto en cualquier momento instalando este enlace en tu pantalla de inicio.</p>
+                <div class="install-guide-box">
+                    <div class="install-section">
+                        <h3 class="install-title"><i class="fab fa-apple"></i> Para iOS (iPhone)</h3>
+                        <ol class="install-steps">
+                            <li>Toca el botón <strong>Compartir</strong> <i class="fas fa-share-square"></i> en Safari.</li>
+                            <li>Busca y selecciona <strong>"Agregar a pantalla de inicio"</strong>.</li>
+                            <li>¡Listo! El icono de la empresa aparecerá en tu móvil.</li>
+                        </ol>
+                    </div>
+                    <div class="install-section">
+                        <h3 class="install-title"><i class="fab fa-android"></i> Para Android</h3>
+                        <ol class="install-steps">
+                            <li>Toca los <strong>tres puntos</strong> <i class="fas fa-ellipsis-v"></i> en Chrome.</li>
+                            <li>Selecciona <strong>"Agregar a la pantalla principal"</strong>.</li>
+                            <li>Acepta y tendrás acceso instantáneo desde el escritorio de tu celular.</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE QR -->
+    <div id="qr-code-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-header-title">Escanear Contacto</h2>
+                <button class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <p style="color: #4b5563; margin-bottom: 1.25rem; font-size: 0.875rem;">Enfoca la cámara de tu celular en este código para abrir mi perfil digital o almacenar directamente mis datos de contacto.</p>
+                <div class="qr-box-wrapper">
+                    <img id="qr-image" src="" alt="Código QR Contacto" class="qr-image-element">
+                </div>
+                <p style="font-size: 10px; color: #9ca3af; margin-top: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;">Luz Adriana Osorno M. - Norte Inmobiliario SAS</p>
+            </div>
+        </div>
+    </div>
 
     <!-- TOAST -->
-    <div id="toast" class="fixed bottom-5 left-1/2 transform -translate-x-1/2 bg-[var(--primary)] text-white px-6 py-3 rounded-full shadow-2xl font-semibold text-sm opacity-0 pointer-events-none transition-all duration-300 z-[2000] flex items-center gap-2">
-        <i class="fas fa-check-circle text-lg"></i>
+    <div id="toast" class="toast-notification">
+        <i class="fas fa-check-circle" style="font-size: 1.125rem;"></i>
         <span id="toast-message"></span>
     </div>
-    
+        
     <script>
         const currentUrl = window.location.href;
-        
+                
         const showToast = (message) => {
             const toast = document.getElementById('toast');
             document.getElementById('toast-message').textContent = message;
-            toast.classList.remove('opacity-0', 'pointer-events-none');
-            toast.classList.add('opacity-100');
-            setTimeout(() => { toast.classList.remove('opacity-100'); toast.classList.add('opacity-0', 'pointer-events-none'); }, 3000);
+            toast.classList.add('active');
+            setTimeout(() => { 
+                toast.classList.remove('active'); 
+            }, 3000);
         };
 
         // Links de compartir
@@ -400,9 +966,17 @@
         document.getElementById('share-mail').href = `mailto:?subject=Te comparto mi tarjeta digital&body=${encodeURIComponent(currentUrl)}`;
 
         document.getElementById('copy-link-btn').addEventListener('click', () => {
-            navigator.clipboard.writeText(currentUrl).then(() => {
+            const textArea = document.createElement("textarea");
+            textArea.value = currentUrl;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
                 showToast("Enlace copiado correctamente");
-            });
+            } catch (err) {
+                showToast("No se pudo copiar el enlace");
+            }
+            document.body.removeChild(textArea);
         });
 
         const nativeShareBtn = document.getElementById('native-share-btn');
